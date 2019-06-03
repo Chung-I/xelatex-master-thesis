@@ -78,7 +78,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% 非必要的套件，但很實用
-\usepackage{amsmath} % 各式 AMS 數學功能
+\usepackage{mathtools} % 各式 AMS 數學功能
 \usepackage{amssymb} % 各式 AMS 數學符號
 \usepackage{mathrsfs} %草寫體數學符號，在數學模式裡用 \mathscr{E} 得草寫 E
 \usepackage{listings} % 程式列表套件
@@ -88,9 +88,10 @@
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{pgf}
 \usepackage{tikz}
-\usetikzlibrary{arrows,automata,positioning}
+\usetikzlibrary{arrows.meta,shapes.geometric,positioning}
+\usetikzlibrary{backgrounds,fit}
 
-
+\input{math_shortcuts}
 
 % Title Page
 \renewcommand{\enTitle}{This is Title}  %英文標題
