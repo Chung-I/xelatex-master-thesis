@@ -2,18 +2,18 @@
 
 DIST_DIR=dist
 
-all: thesis 
+all: thesis
 
 watch:
 	mkdir -p $(DIST_DIR)
 	latexmk -quiet -bibtex -pvc -f -pdf \
-		-pdflatex="pdflatex -synctex=1 -interaction=nonstopmode" \
+		-pdflatex="xelatex -synctex=1 -interaction=nonstopmode" \
 		-output-directory=$(DIST_DIR) thesis
 
 thesis:
 	mkdir -p $(DIST_DIR)
 	latexmk -quiet -bibtex -f -pdf \
-		-pdflatex="pdflatex -synctex=1 -interaction=nonstopmode" \
+		-pdflatex="xelatex -synctex=1 -interaction=nonstopmode" \
 		-output-directory=$(DIST_DIR) thesis
 
 clean:
