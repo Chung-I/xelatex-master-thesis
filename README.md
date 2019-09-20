@@ -38,7 +38,7 @@ $pdf_previewer = 'zathura';
 
 ## 編輯
 
-- 論文題目等設定在 title\_settings.tex 裡面修改
+- 首先請修改 title\_settings.tex 並確定裡面的 **所有欄位** 都是正確的
 - 所有的內文都是修改 chapters 資料夾下的檔案，其中 chapters/all.tex 是大架構
 - 文中可能會用到符號縮寫指令可定義在 notations.tex
 - thesis\_frontpages.tex → 誌謝與摘要
@@ -54,6 +54,4 @@ $pdf_previewer = 'zathura';
 ```
 - `make clean` 刪光光
 
-浮水印的位置大小可在 watermark.tex 裡面做修改
-- `width=5cm` 可改成其他大小
-- `\put(2,-5)` 可改成其他座標位置，單位是公分 (但你可能要試一下才知道要設多少...)
+浮水印的部分請使用 Adobe Acrobat 加入，這可以在口試完成之後再進行。請參考 [臺大電子學位論文上傳手冊](http://www.lib.ntu.edu.tw/doc/CL/etdsguide.pdf)。
