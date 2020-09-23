@@ -1,0 +1,55 @@
+\begin{figure}[tbp]
+\centering
+\begin{subfigure}[b]{1.\textwidth}
+  \centering
+  \captionsetup{justification=centering}
+  \begin{dependency}[edge style={black!60!black,very thick},
+    label style={fill=yellow!60,font=\bfseries,thick}]
+    \begin{deptext}[column sep=0.3cm, row sep=0.5ex, font=\rmfamily]
+      PROPN\& VERB\& DET\& NOUN\&  ADP\& DET\&      NOUN\& PUNCT \\
+      I\&     saw\&    a\&  man\& with\&   a\& telescope\&   .\& \\
+    \end{deptext}
+  \depedge{2}{1}{nsubj}
+  \deproot[edge unit distance=4ex]{2}{root}
+  \depedge{4}{3}{det}
+  \depedge{2}{4}{obj}
+  \depedge{7}{5}{case}
+  \depedge{7}{6}{det}
+  \depedge{4}{7}{nmod}
+  \depedge[edge unit distance=2ex]{2}{8}{punct}
+  \wordgroup[group style={fill=gray!40, draw=brown, inner sep=.6ex}]{2}{1}{1}{a0}
+  \wordgroup[group style={fill=orange!40, draw=brown, inner sep=.6ex}]{2}{2}{2}{a1}
+  \wordgroup[group style={fill=blue!40, draw=brown, inner sep=.6ex}]{2}{3}{7}{a2}
+  \end{dependency}
+  \caption{介系詞片語``with a telescope''依附於名詞``a man''上；\\翻譯：我看見一個帶望遠鏡的男人。}
+  \label{fig:np-attach}
+\end{subfigure}
+\vfill
+\begin{subfigure}[b]{1.\textwidth}
+  \centering
+  \begin{dependency}[edge style={black!60!black,very thick},
+    label style={fill=yellow!60,font=\bfseries,thick}]
+    \begin{deptext}[column sep=0.3cm, row sep=0.5ex, font=\rmfamily]
+      PROPN\& VERB\& DET\& NOUN\&  ADP\& DET\&      NOUN\& PUNCT \\
+      I\&     saw\&    a\&  man\& with\&   a\& telescope\&   .\& \\
+    \end{deptext}
+  \depedge{2}{1}{nsubj}
+  \deproot[edge unit distance=4ex]{2}{root}
+  \depedge{4}{3}{det}
+  \depedge{2}{4}{obj}
+  \depedge{7}{5}{case}
+  \depedge{7}{6}{det}
+  \depedge[edge unit distance=1.75ex]{2}{7}{obl}
+  \depedge[edge unit distance=1.75ex]{2}{8}{punct}
+  \wordgroup[group style={fill=gray!40, draw=brown, inner sep=.6ex}]{2}{1}{1}{a0}
+  \wordgroup[group style={fill=orange!40, draw=brown, inner sep=.6ex}]{2}{2}{2}{a1}
+  \wordgroup[group style={fill=blue!40, draw=brown, inner sep=.6ex}]{2}{3}{4}{a2}
+  \wordgroup[group style={fill=orange!40, draw=brown, inner sep=.6ex}]{2}{5}{7}{a1}
+  \end{dependency}
+  \caption{介系詞片語``with a telescope''依附於動詞``saw''上。\\
+           翻譯：我用望遠鏡看見一個男人。}
+  \label{fig:vp-attach}
+\end{subfigure}
+\caption{介系詞片語依附(Prepositional phrase attachment, PP attachment)造成的結構歧義性(Structural ambiguity)。}
+\label{fig:struct-ambig}
+\end{figure}

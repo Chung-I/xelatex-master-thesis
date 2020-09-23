@@ -1,5 +1,108 @@
 \section{研究動機}
+
+\iffalse
+讓電腦理解人類語言，是幾乎所有從事人工智慧的研究者們最終的目標。
+近年來，巨量資料與硬體資源的進步大幅推動了自然語言處理的發展。
+1957年佛氏 （John Rupert Firth）\cite{Firth1957ASO}所提倡的分布假說（distributional hypothesis）：
+``You shall know a word by the company it keeps''.
+為基於分佈語義學（distributional semantics）的方法提供了理論基礎；
+2014年米氏（Tomas Mikolov）提出的文字向量（word2vec）\cite{Mikolov2013DistributedRO}
+到2018年彼氏\cite{peters-etal-2018-deep}與戴氏\cite{devlin-etal-2019-bert}先後提出的上下文化詞向量（contextualized word representations），
+其訓練所使用的語料愈來愈龐雜，模型參數愈大，
+於下游任務（downstream task）如詞性標注（part-of-speech tagging）、句法剖析（syntactic parsing）、語意角色標注（semantic role labeling）、問答系統（question answering）等的表現愈佳。
+
+而巨量資料需要大模型的表現力（expressiveness）來加以建模，才有用武之地；
+大模型的巨量參數則需要巨量資料才不致過擬合（overfitting）；兩者相輔相成，缺一不可。
+
+但是只有少數常見語言如英文、中文等存在巨量資料供模型訓練，而這些語言僅佔地球上所有語言的5\%；
+占比95\%的資料不足語言（low-resource languages）卻無法直接套用需要巨量資料的大參數模型而在下游任務中獲得與常見語言同樣的進步。
+幸而語言儘管表面形式（surface form）不一，深層結構卻驚人地相似\cite{greenberg1963universals}，
+因此出現許多研究致力於將多語言訓練（multilingual training）在其他資料充足語言（high-resource languages）上的模型轉移（transfer）到資料不足語言，
+希望能藉助資料充足語言與資料不足語言的相似性，提高資料不足語言上的任務表現。
+\fi
+
+為何自然語言處理系統能從少量資料中習得未見過的語言語法是一重要的問題？
+
+首先，嬰兒能夠習得任何母語的語法，即使只看過有限的語料，
+且許多相異的語法都可以解釋這些他們所接收到的語料，
+然而嬰兒仍然成功習得該語言的語法並成功產生語句與他人溝通。
+這說明人類學習語言不只仰賴該語言的資料，
+也仰賴其對語言的歸納偏置（linguistic inductive bias），即對語言可能具備之性質的假設，
+使得他們能夠在吸收有限的語料後，從所有可能解釋語料的語法中選出較有可能符合歸納偏置的語法。
+語言的歸納偏置可能來自人類擁有相同的腦部結構、或由於語言做為溝通工具所具備的特性（如最大資訊量）。
+因此從達成人工智慧的目標觀之，既然嬰孩有辦法在接觸少量的語料後成功習得語法，
+那麼自然語言處理系統也應該具備這樣的能力。
+
+其次，從實務的角度觀之，由於擁有大量語料的語言佔世界上所有的語言比例非常少；
+其餘的語言大多不是只存在少量語料，就是根本沒有語料可供學習。
+以UD句法樹庫為例子，2020年5月出版的UD 2.6版句法樹庫共收錄約90種語言，
+相較於世界上現存的語言數目7117種\footnote{取自Ethnologue第二十三版\cite{eberhard2020ethnologue}。}僅佔約1\%，
+可見如果欲處理地球上所有的語言，只有少量甚或沒有訓練資料的語言比例遠大於有堪用數量訓練資料的語言。
+也因此若自然語言處理系統有辦法在給予寥寥數句語料後就習得該語言的語法，
+將有助於降低開發資料不足語言的自然語言處理系統的門檻。
+
+\iffalse
+原因有兩點：
+然而多語言訓練的目標，是提高訓練語言（training languages）在其測試集（testing set）上的準確率，
+而提高訓練語言的準確率，未必就代表在資料不足語言上的準確率也會隨之提高；
+有可能出現訓練語言與資料不足語言差異過大，而導致多語言訓練模型無法幫助資料不足語言的任務表現。
+芬氏（Chelsea Finn）在2018年提出的模型無關元學習（model-agnostic meta-learning）
+\cite{Finn2017ModelAgnosticMF}為所有使用梯度下降法（gradient descent）進行最佳化的模型的提供了一項簡潔且有效的方法處理資料不足任務。
+在語言轉移學習的框架下，其目標是替未見過的語言（unseen languages）尋找一合適參數初始值，使得少量步數梯度更新後，參數在該語言的測試集上表現最佳。
+其強調使用少量步數進行梯度更新，即是由於資料不足語言資料稀少，過多步數容易過擬合。
+不若單純的多語言訓練，模型無關元學習於訓練階段的目標並非提高在訓練語言上的表現，
+而是直接最佳化模型在未見過語言上調適（fine-tuning）後的表現，訓練與測試環境沒有不匹配之處，
+有效防止模型只在訓練語言的測試集上有好表現，而無法推廣到資料不足語言上的問題。
+\fi
+
+2016年由尼氏（Joakim Nivre）等人提出的Universal Dependencies句法樹庫\cite{Nivre2016UniversalDV}（後稱UD句法樹庫）
+截至UD2.5版，已有90種語言、累計超過兩千萬詞被收錄\cite{Nivre2020UniversalDV}，
+其中不乏許多資料不足語言之依存句法樹庫，為資料不足語言的系統提供了一個絕佳的測試場域。
+
+%從1990以降，以統計為基礎的機器翻譯系統\cite{brown1993mathematics}逐漸取代規則式
+%現在流行的人工智慧系統，從1980以降以分佈語義學（distribution）為基礎的
+近年來，巨量資料與硬體資源的進步大幅推動了以深層類神經網路（Deep Neural Networks）為基礎的自然語言處理系統的發展。
+%1957年佛氏 （John Rupert Firth）\cite{Firth1957ASO}所提倡的分布假說（distributional hypothesis）：
+%``You shall know a word by the company it keeps''.
+%為基於分佈語義學（distributional semantics）的方法提供了理論基礎；
+\iffalse
+2012年，基於深層類神經網路的AlexNet模型在著名的圖片分類比賽ILSVRC（ImageNet Large Scale Visual Recognition Competition）
+中大幅度贏過基於支撐向量機的第二名團隊，
+也影響了自然語言處理的
+2014年米氏（Tomas Mikolov）提出的文字向量（word2vec）\cite{Mikolov2013DistributedRO}
+到2018年彼氏\cite{peters-etal-2018-deep}與戴氏\cite{devlin-etal-2019-bert}
+先後提出的上下文化詞向量（contextualized word representations），
+其訓練所使用的語料愈來愈龐雜，模型參數愈大，
+於下游任務（downstream task）如詞性標注（part-of-speech tagging）、
+句法剖析（syntactic parsing）、語意角色標注（semantic role labeling）、
+問答系統（question answering）等的表現愈佳。
+\fi
+然而深層類神經網路的巨量參數需要巨量資料才不致過擬合（overfitting）；
+而巨量資料需要深層類神經網路的表現力（expressiveness）來加以建模，才有辦法充分表現自然語言複雜的程度；
+兩者相輔相成，缺一不可。
+為了克服深層類神經網路不適合處理少量資料的問題，
+許多研究者紛紛投入少量樣本學習的研究，
+希望可以打造出具有優異的準確率，又不會過擬合在少量資料的深層類神經網路模型。
+
+\section{相關研究}
+過去已經有不少文獻探討如何藉助資料充足語言的標註資料改進資料不足語言的依存句法剖析\cite{zhang-barzilay-2015-hierarchical,agic-etal-2016-multilingual,rasooli-collins-2017-cross}；
+此類研究旨在提高跨語言句法知識轉移的功效，茲列舉如下：
+根據語言類型學（linguistic typology）的知識\cite{wals}選擇性地共享源語言（source language）與目標語言（target language）的模型參數\cite{naseem-etal-2012-selective}，
+或將其當做模型輸入，幫助模型利用其對不同語言統一的語法規則描述，進而得以泛化到更多未見過的目標語言\cite{tackstrom-etal-2013-target,zhang-barzilay-2015-hierarchical,aufrant-etal-2016-zero,littell-etal-2017-uriel}。
+衡量轉移學習用於不同模型（轉換器（transformer）或遞歸式類神經網路（RNN））及演算法（如圖式（graph-based）或轉換式（transition-based）剖析器（parser））的難易度\cite{ahmad-etal-2019-difficulties}；
+如何挑選用於訓練的源語言以提高目標語言表現\cite{lin-etal-2019-choosing}。
+
+近年來，多語言的語言模型（Multilingual Language Models）的出現進一步提升了跨語言轉移學習的表現\cite{devlin-etal-2019-bert,Conneau2019UnsupervisedCR}。
+另人驚訝的是，這些模型使用的語料只限於單語言（非平行），所有語言並共享單一模型，研究卻發現它們有自動對齊不同語言句法資訊的能力\cite{chi2020finding}。
+
+孔氏\cite{kondratyuk-straka-2019-75}調適多語言BERT模型\cite{devlin-etal-2019-bert}（multilingual BERT, 下稱$\mathrm{mBERT}$）在UD句法樹庫2.3版的75種語言上，建構了一個多語言依存句法剖析器，
+並獲得了高水準的表現；但孔氏也發現多語言依存句法剖析器對資料不足語言的幫助大於對資料充足語言的幫助（相對於單語言的依存句法剖析器而言），
+與近年來文獻對多語言單一模型的觀察「多語言的詛咒」（\textit{the curse of multilinguality}）相符。
+烏氏\cite{ustun2020udapter}提出使用語言類型學資訊產生$\mathrm{mBERT}$的適應器\cite{rebuffi2018efficient,houlsby2019parameter}參數以解決「多語言詛咒」，結果成功適度減輕模型在資料充足語言上的表現退步的情形。
 \section{研究方向}
+本研究希望透過
+
+
 \section{章節安排}
 本論文之章節安排如下：
 

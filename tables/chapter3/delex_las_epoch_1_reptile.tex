@@ -1,0 +1,88 @@
+\begin{table}[htbp]
+    \begin{subtable}[h]{0.8\textwidth}
+        \centering
+            \begin{tabular}[!ht]{c|llll}
+                \hline
+                語言 & 基準 & 爬蟲類元學習 & 爬蟲類元學習(4步) \\
+                \hline\hline
+                wo & 62.83 & 62.96 & \textbf{63.98} \\
+                gd & 44.47 & 44.14 & \textbf{44.48} \\
+                te & 60.61 & \textbf{62.55} & 57.00 \\
+                cop & 66.58 & \textbf{66.93} & 65.22 \\
+                be & \textbf{71.87} & 70.78 & 70.49 \\
+                mr & 48.30 & 47.33 & \textbf{49.27} \\
+                mt & 68.76 & 68.42 & \textbf{69.24} \\
+                ta & 43.19 & \textbf{46.81} & 44.39 \\
+                \hline
+                avg & 58.33 & \textbf{58.74} & 58.01 \\
+                \hline
+            \end{tabular}
+            \caption{未精細校正（0回合）。}
+    \end{subtable}
+    \vfill
+    \begin{subtable}[h]{0.8\textwidth}
+        \centering
+            \begin{tabular}[!ht]{c|lll}
+                \hline
+                語言 & 基準 & 爬蟲類元學習 & 爬蟲類元學習(4步) \\
+                \hline\hline
+                wo & 63.64 & 63.39 & \textbf{64.70} \\
+                gd & 46.49 & \textbf{47.96} & 47.60 \\
+                te & 64.36 & \textbf{65.60} & 62.14 \\
+                cop & 67.03 & 67.44 & \textbf{67.83} \\
+                be & \textbf{71.59} & 71.11 & 69.99 \\
+                mr & 48.79 & 47.57 & \textbf{49.51} \\
+                mt & 68.84 & 68.83 & \textbf{69.57} \\
+                ta & 45.35 & 47.11 & \textbf{47.81} \\
+                \hline
+                avg & 59.51 & 59.88 & \textbf{59.89} \\
+                \hline
+            \end{tabular}
+        \caption{精細校正1步（$\frac{1}{6}$回合）。}
+    \end{subtable}
+    \vfill
+    \begin{subtable}[h]{0.8\textwidth}
+    \centering
+        \begin{tabular}[!ht]{c|llll}
+            \hline
+            語言 & 基準 & 爬蟲類元學習 & 爬蟲類元學習(4步) \\
+            \hline\hline
+            wo & 65.71 & \textbf{66.53} & 66.08 \\
+            gd & 53.79 & 57.11 & \textbf{57.66} \\
+            te & 68.24 & \textbf{70.18} & 69.35 \\
+            cop & 66.95 & 67.84 & \textbf{68.06} \\
+            be & 69.14 & \textbf{69.51} & 67.10 \\
+            mr & 52.67 & 55.10 & \textbf{55.83} \\
+            mt & \textbf{70.05} & 69.20 & 69.79 \\
+            ta & 51.58 & 54.35 & \textbf{56.31} \\
+            \hline
+            avg & 62.27 & 63.73 & \textbf{63.77} \\
+            \hline
+        \end{tabular}
+        \caption{精細校正1回合。}
+    \end{subtable}
+    \vfill
+    \begin{subtable}[h]{0.8\textwidth}
+        \centering
+            \begin{tabular}[!ht]{c|llll}
+                \hline
+                語言 & 基準 & 爬蟲類元學習 & 爬蟲類元學習(4步) \\
+                \hline\hline
+                wo & \textbf{70.16} & 68.80 & 68.98 \\
+                gd & 65.33 & 64.94 & \textbf{65.37} \\
+                te & 70.32 & 71.15 & \textbf{71.98} \\
+                cop & 73.99 & 74.05 & \textbf{74.30} \\
+                be & \textbf{71.87} & 62.76 & 68.04 \\
+                mr & 58.50 & 60.19 & \textbf{61.65} \\
+                mt & \textbf{70.59} & 69.49 & 69.24 \\
+                ta & \textbf{61.64} & 59.58 & 60.73 \\
+                \hline
+                avg & \textbf{67.80} & 66.37 & 67.54 \\
+                \hline
+            \end{tabular}
+            \caption{精細校正80回合。}
+        \end{subtable}
+    \label{tab:delex_las_epoch_1}
+    \caption{不同步數的爬蟲類元學習在未見過語言上精細校正不同回合後在測試集上的LAS之比較。\\
+    ${ }^{**}$ $p < 0.001$ ， ${ }^{*}$ $p < 0.01$。}
+\end{table}

@@ -1,0 +1,61 @@
+\begin{table}[h!]
+    \centering
+    \begin{subtable}[t]{.5\textwidth}
+        \centering
+        \begin{tabular}[t]{|l | l l|}
+            \hline
+            \textbf{句法關係} & \textbf{英文描述} & \textbf{中文描述} \\
+            \hline
+            acl & clausal modifier of noun (adjectival clause) & 形容詞子句 \\
+            advcl & adverbial clause modifier & 副詞子句 \\
+            advmod & adverbial modifier & 副詞 \\
+            amod & adjectival modifier & 形容詞 \\
+            appos &  appositional modifier & 同位語 \\
+            aux & auxiliary & 助動詞 \\
+            case & case marking & 格位 \\
+            cc &  coordinating conjunction & 並列連詞 \\
+            ccomp & clausal complement & 子句補語 \\
+            clf & classifier & 分類詞 \\
+            compound & compound & 複合（名詞、動詞等）\\
+            conj & conjunct & 並列 \\
+            cop & copula & 系詞 \\
+            csubj & clausal subject & 子句主詞 \\
+            dep & unspecified dependency & 未定義依存關係 \\
+            determiner & determiner& 限定詞 \\
+            discourse & discourse element & 話語元素 \\
+            dislocated & dislocated elements & 錯位 \\
+            expl & expletive & 虛主詞 \\
+            \hline
+        \end{tabular}
+        \label{tab:true_lr_testing_languages}
+    \end{subtable}%
+    \begin{subtable}[t]{.5\textwidth}
+        \centering
+        \begin{tabular}[t]{|l | l l|}
+            \hline
+            \textbf{句法關係} & \textbf{英文描述} & \textbf{中文描述} \\
+            \hline
+            fixed & fixed multiword expression & 固定多詞表達 \\
+            flat & flat multiword expression & 扁平多詞表達 \\
+            goeswith & goes with & 同詞 \\
+            iobj & indirect object & 間接受詞 \\
+            list & list & 列舉 \\
+            marker & marker & 標記 \\
+            nmod & nominal modifier & 名詞修飾語 \\
+            nsubj & nominal subject & 名詞主語 \\
+            nummod & numeric modifier & 數值修飾語 \\
+            obj & object & 受詞 \\
+            obl & oblique nominal & 間接格名詞 \\
+            orphan & orphan & 孤懸 \\
+            parataxis & parataxis & 並列 \\
+            punct & punctuation & 標點 \\
+            reparandum & overridden disfluency & 修護語 \\
+            root & root & 根 \\
+            vocative & vocative & 呼格 \\
+            xcomp & open clausal complement 開放子句補語 \\
+            \hline
+        \end{tabular}
+    \end{subtable}%
+    \caption{UD句法樹庫裡的普適句法關係。}
+    \label{tab:deprels}
+    \end{table}

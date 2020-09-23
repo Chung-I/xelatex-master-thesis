@@ -1,0 +1,37 @@
+\begin{algorithm}
+    \begin{spacing}{1.0}
+        \begin{algorithmic}
+            \Procedure{\textbf{最大生成有向樹}}{$G,s$}
+            \State $G = \left(V,\ E\right)$
+            \State 邊評分函數 $s: E \rightarrow \mathbb{R} $
+            \State $E' = \{\left(\MWord_{i}, \MWord_{j}\right)| \MWord_{j} \in V, \MWord_{i} = \underset{\MWord_{i}}{\argmax}\ s\left(\MWord_{i}, \MWord_{j}\right)\}$
+            \State $G' = \left(V, E'\right)$
+            \If{$G'$ 無環}
+                \State{回傳 $G'$}
+            \Else
+                \State 尋找一邊集合 $E_{C}$ 使得其為 $G'$ 中的環
+                \State $G_{C} = \textbf{收束}\left(G', E_{C}, s\right)$
+                \State $\mathbf{y} = \textbf{最大生成有向樹}\left(G_{C}, s\right)$
+                \State 尋找一節點 $v \in C$ 使得 $(v', v) \in \mathbf{y}, (v'', v) \in C$
+                \State 回傳 $\mathbf{y} \cup C - \{(v'', v)\}$
+            \EndIf
+            \EndProcedure
+            \Procedure{\textbf{收束}}{$G, E_{C}, s$}
+                \State 令 $G_{C}$ 為 $G$ 除去 $C$ 中的節點後的子圖
+                \State 將 節點 $c$ 加入 $G_{C}$ 中，代表原本的環 $C$
+                \For{$v \in V - C: \exists_{v' \in C}\ (v', v) \in E$}
+                    \State 將邊 $(c, v)$ 加入 $G_{C}$, 其分數 $s(c, v) = \max_{v' \in C} s(v', v)$
+                \EndFor
+                \For{$v \in V - C: \exists_{v' \in C}\ (v, v') \in E$}
+                    \State 將邊 $(v, c)$ 加入 $G_{C}$, \par
+                    \hskip\algorithmicindent $s(v, c) = \max_{v' \in C} \left[s(v, v') - s(a(v'), v') + s(C)\right]$, \par
+                    \hskip\algorithmicindent $a(v)$ 為 $v$ 之父節點 $C$, \par
+                    \hskip\algorithmicindent $s(C) = \sum_{v \in C} s(a(v), v)$
+                \EndFor
+                \State 回傳 $G_{C}$
+            \EndProcedure
+        \end{algorithmic}
+        \caption{最大有向樹演算法。}
+        \label{alg:cle}
+    \end{spacing}
+\end{algorithm}

@@ -1,0 +1,63 @@
+\begin{table}[htbp]
+    % \fontsize{8}{10}\selectfont
+    \centering
+    \begin{subtable}[t]{.4\textwidth}
+        \begin{tabular}[t]{@{}lr@{}}
+        \toprule
+        超參數 & 值 \\
+        \midrule
+            依存標籤維度         & 256 \\
+            依存邊維度           & 768 \\
+            丟棄機率            & 0.5 \\
+            BERT丟棄機率        & 0.2 \\
+            BERT遮蔽機率        & 0.2 \\
+            層丟棄機率          & 0.1 \\
+            批次大小$b$         & 16 \\
+            語言數$l$           & 10 \\
+            訓練樣本數/回合        & 64000 \\
+            訓練回合數          & 10 \\
+            優化器              & Adam \\
+            $\beta_1,\beta_2$  & 0.9, 0.99 \\
+            權重衰減參數         & 0.01 \\
+            基礎學習率          & $1e^{-3}$ \\
+            學習率調度器        & ulmfit\_sqrt \\
+            學習率暖身步數       & 1231 \\
+            最大梯度範數        & 5.0 \\
+        \bottomrule
+        \end{tabular}
+        \caption{
+            預訓練超參數。
+        }
+        \label{tab:pretrain_hparams}
+    \end{subtable}
+    \begin{subtable}[t]{.4\textwidth}
+        \begin{tabular}[t]{@{}lr@{}}
+        \toprule
+        超參數 & 值 \\
+        \midrule
+            丟棄機率            & 0.5 \\
+            BERT丟棄機率        & 0.2 \\
+            BERT遮蔽機率        & 0.2 \\
+            層丟棄機率          & 0.1 \\
+            批次大小            & 8 \\
+            訓練回合數          & 80 \\
+            優化器              & Adam \\
+            $\beta_1,\beta_2$  & 0.9, 0.99 \\
+            權重衰減參數         & 0.01 \\
+            基礎學習率          & $5e^{-5}$ \\
+            學習率調度器        & slanted\_triangular \\
+            學習率暖身步數       & 1（回合）\\
+            最大梯度範數        & 5.0 \\
+            交叉驗證摺數$k$     & 3   \\
+        \bottomrule
+        \end{tabular}
+        \caption{
+            精細校正超參數。
+        }
+        \label{tab:finetune_hparams}
+    \end{subtable}
+    \caption{
+        模型超參數一覽。
+    }
+    \label{tab:hparams}
+\end{table}

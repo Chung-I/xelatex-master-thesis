@@ -26,6 +26,7 @@
 \usetikzlibrary{arrows.meta,positioning,calc,chains,scopes}
 \usetikzlibrary{shapes.geometric,angles}
 \usetikzlibrary{backgrounds,fit}
+\input{pgf_settings}
 
 \usepackage{multirow,multicol,rotating}
 % 插圖套件 graphicx
@@ -37,9 +38,11 @@
 %%%%%%%%% listings / algorithm %%%%%%%%%%
 \usepackage{listings} % 程式列表套件
 % hyperref跟algorithm衝突，hyperref必須放在algorithm前面
-\usepackage{algorithm}
-\usepackage{algorithmic}
-
+%\usepackage{algorithm}
+%\usepackage{algorithmic}
+\usepackage[plain]{algorithm}
+\usepackage{setspace}
+\usepackage[noend]{algpseudocode}
 %
 % listing setting
 \lstset{breaklines=true,% 過長的程式行可斷行

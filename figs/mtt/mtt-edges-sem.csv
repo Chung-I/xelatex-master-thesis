@@ -1,0 +1,6 @@
+u,v,label, lw,color,opacity,bend, R , G , B ,Direct
+A,B,     ,0.5,black,    0.5,   0,   ,   ,   ,true
+A,C,     ,0.5,black,    0.5,   0,   ,   ,   ,true
+B,D,     ,0.5,black,    0.5,   0,   ,   ,   ,true
+B,E,     ,0.5,black,    0.5,   0,   ,   ,   ,true
+C,E,     ,0.5,black,    0.5,   0,   ,   ,   ,true
