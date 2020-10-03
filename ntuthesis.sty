@@ -5,7 +5,7 @@
 \usepackage{mathspec}
 \usepackage[CheckSingle]{xeCJK}
 \usepackage{zhnumber}
-\setCJKmainfont[BoldFont=Noto Serif CJK TC Bold]{Noto Serif CJK TC Light}
+\setCJKmainfont[BoldFont=Noto Serif CJK TC Bold,ItalicFont=AR PL UKai TW]{Noto Serif CJK TC Light}
 \setCJKsansfont[BoldFont=Noto Serif CJK TC Bold]{Noto Serif CJK TC Light}
 \setCJKmonofont[BoldFont=Noto Serif CJK TC Bold]{Noto Serif CJK TC Light}
 \newCJKfontfamily\zhKaiFont{AR PL UKai TW}
@@ -31,6 +31,7 @@
 \renewcommand{\listtablename}{表目錄}
 \renewcommand{\bibname}{參考文獻}
 
+\iffalse
 \newcommand{\zhCollegeName}{電機資訊學院}
 \newcommand{\zhDepartmentName}{電機工程學系}
 \newcommand{\enCollegeName}{College of Electrical Engineering and Computer Science}
@@ -47,6 +48,7 @@
 \newcommand{\enYear}{2008}  %公元紀年
 \newcommand{\enMonth}{June}  %英文月份
 \newcommand{\oralDate}{97年7月1日}  %口試日期
+\fi
 
 \newenvironment{acknowledgement}{\newpage \begin{center}
 	\LARGE \zhKaiFont 誌謝
