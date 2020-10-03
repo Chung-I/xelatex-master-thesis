@@ -552,7 +552,7 @@ U_{\tau, \textrm{SGD}} \left( \phi \right) = \phi - \alpha \nabla_{\phi} \mathca
                       &= \nabla_{\phi_{k}} \mathcal{L}_{\tau, B} ( \phi_{k} ) \prod\limits_{i=0}^{k-1}  \left( I - \alpha \nabla^{2}_{\phi_{i}} \mathcal{L}_{\tau, A} \left( \phi_{i} \right) \right)
 \end{align}
 由於模型的參數維度非常大，計算其黑塞矩陣需要耗費大量計算資源，因此之後的研究者紛紛對模型無關元學習提出不需要計算黑塞矩陣的一階近似元學習方法。
-以下介紹\fomaml（First-order MAML）與\reptile （Reptile）\cite{nichol2018first}兩種變形。
+以下介紹\fomaml （First-order MAML）與\reptile （Reptile）\cite{nichol2018first}兩種變形。
 \subsection{\fomaml （First-order MAML）}
 \fomaml法直接將原本模型無關元學習之更新函數的導數$\left(U_{\tau, A}^{k}\right)' (\phi)$設為單位矩陣：
 \begin{align}

@@ -14,14 +14,14 @@
 \fi
 本章介紹使用模型無關元學習進行多語言預訓練，以幫助資料不足語言的依存句法剖析的系列實驗。
 
-模型無關元學習，本來是為了處理圖片分類領域少量樣本學習的問題，
+模型無關元學習本來是為了處理圖片分類領域少量樣本學習的問題，
 不久後也為資料不足（但資料量大於少量樣本學習）的學習任務所用，
 如古氏（Jiatao Gu）將元學習方法引入資料不足的機器翻譯，
 並勝過使用普通多語言學習的基準模型\cite{gu-etal-2018-meta}。
-芬氏(Chelsea Finn)在2018年提出的模型無關元學習(model-agnostic meta-learning)
-\cite{Finn2017ModelAgnosticMF}為所有使用梯度下降法(gradient descent)進行最佳化的模型的提供了一項簡潔且有效的方法處理資料不足任務。
-在語言轉移學習的框架下，其目標是替未見過的語言(unseen languages)尋找一合適參數初始值，使得少量步數梯度更新後，參數在該語言的測試集上表現最佳，
-其稱此在少量步數更新就能大幅增進爲見過語言表現的能力為「快速適應」（fast adaptation）。
+芬氏(Chelsea Finn)在2018年提出的模型無關元學習（model-agnostic meta-learning）
+\cite{Finn2017ModelAgnosticMF}為所有使用梯度下降法（gradient descent）進行最佳化的模型提供了一項簡潔且有效的方法處理資料不足任務。
+在語言轉移學習的框架下，其目標是替未見過的語言（unseen languages）尋找一合適參數初始值，使得少量步數梯度更新後，參數在該語言的測試集上表現最佳，
+其稱此在少量步數更新就能大幅增進爲見過語言表現的能力為「快速適應」（fast adaptation）\cite{Finn2017ModelAgnosticMF}。
 %其強調使用少量步數進行梯度更新，即是由於資料不足語言資料稀少，過多步數容易過擬合。
 
 在元學習出現以前，
@@ -37,7 +37,7 @@
 有可能出現訓練語言與資料不足語言差異過大，而導致多語言訓練模型無法幫助資料不足語言的任務表現。
 
 不若單純的多語言訓練，模型無關元學習於訓練階段的目標並非提高在訓練語言上的表現，
-而是直接最佳化模型在未見過語言上\finetune後的表現，訓練與測試環境沒有不匹配之處，
+而是直接最佳化模型在未見過語言上\finetune 後的表現，訓練與測試環境沒有不匹配之處，
 有效防止模型只在訓練語言的測試集上有好表現，而無法推廣到資料不足語言上的問題。
 
 \iffalse
@@ -55,7 +55,7 @@
 
 
 \section{多語言去詞化依存句法分析（multilingual delexicalized dependency parsing）}
-由於\textit{詞化的依存句法分析}有太多變因，包括使用的預訓練模型，其對不同語言的偏置等等，都會影響句法剖析模型於目標語言上的行為；
+由於詞化的依存句法分析有太多變因，包括使用的預訓練模型，其對不同語言的偏置等等，都會影響句法剖析模型於目標語言上的行為；
 且詞化的依存句法分析參數量較多，使用二次微分的計算量與佔用空間均較大，訓練耗時，
 有時甚至會發生用來進行平行矩陣運算的圖形處理器記憶體不足的問題。
 因此為了排除語言本身句法以外性質對句法剖析的影響及計算資源的考量，
@@ -76,7 +76,7 @@ UD句法樹庫中大部分的語言均提供兩種詞性標記：專為該語言
 造成語言間不必要的干擾。
 為了避免此現象，原作者將一階動能項$\beta_{1}$設為$0$。
 %然而mBERT原始論文中進行精細校正使用的為具有動能項的Adam，
-然而初始實驗發現$\beta_{1} = 0$的Adam在精細校正時時會對準確率造成負面影響。
+然而本研究的初始實驗發現$\beta_{1} = 0$的Adam在精細校正時時會對準確率造成負面影響。
 再者，爬蟲類元學習將外循環原始梯度（raw gradient）直接設為各語言內循環（亦即精細校正）前後參數的差異的平均，
 此數值大小很大程度上取決於內循環優化器的學習率，
 恐與一般模型精細校正時接收到的梯度分佈差異過大。
@@ -106,9 +106,9 @@ UD句法樹庫中大部分的語言均提供兩種詞性標記：專為該語言
 \label{subsec:delex_depparse_setting}
 
 \input{tables/chapter3/delex_hparams.tex}
-我們從\conll的53種訓練語言（73個訓練句法樹庫）中選取有官方驗證集（development set）的46種訓練語言（66個訓練句法樹庫）作爲訓練語言；見表\ref{tab:training_languages}。
-預訓練完成後，我們分別對該模型進行\zeroshot及\finetune在預訓練中未見過的語言上。
-我們挑選\conll的訓練語言中剩下的只有訓練集而沒有發展集的語言作爲真實資料不足測試語言（true low-resource testing languages，見表\ref{tab:true_lr_testing_languages}）。
+我們從\conll 的53種訓練語言（73個訓練句法樹庫）中選取有官方驗證集（development set）的46種訓練語言（66個訓練句法樹庫）作爲訓練語言；見表\ref{tab:training_languages}。
+預訓練完成後，我們分別對該模型進行\zeroshot 及\finetune 在預訓練中未見過的語言上。
+我們挑選\conll 的訓練語言中剩下的只有訓練集而沒有發展集的語言作爲真實資料不足測試語言（true low-resource testing languages，見表\ref{tab:true_lr_testing_languages}）。
 為了觀察控制資料多寡時對不同預訓練方法的影響，
 我們另外挑選了UD 2.5版中8種不在訓練語言中的語言做為模擬資料不足測試語言（simulated low-resource testing languages，見表\ref{tab:sim_lr_testing_languages}）。
 實驗在訓練與測試時時均使用正確的斷句、斷詞，並使用句法樹庫提供的正確詞性做為詞的表徵。
@@ -121,30 +121,48 @@ UD句法樹庫中大部分的語言均提供兩種詞性標記：專為該語言
 
 超參數的設置見表\ref{tab:delex_hparams}。
 \subsection{實驗結果}
+
 \input{figs/chapter3/delex/lang_avg.tex}
-\input{figs/chapter3/delex/lang_avg_maml.tex}
-\input{figs/chapter3/delex/lang_avg_fomaml.tex}
-\input{figs/chapter3/delex/lang_avg_reptile.tex}
-圖\ref{fig:delex_avg}為去詞化分析不同預訓練方法產生的模型在目標語言上經過不同步數的\finetune後的測試集LAS數值。
+圖\ref{fig:delex_avg}為去詞化分析不同預訓練方法產生的模型在目標語言上經過不同步數的\finetune 後的測試集LAS數值。
 由圖中可以觀察到：
 \begin{itemize}
-    \item 在未見過語言上，模型無關元學習模型於只精細校正一步的表現及相對於零樣本的進步量均為各方法中之冠，
+    \item 在未見過語言上，模型無關元學習模型於只精細校正一步的表現及相對於精細校正前的進步量均為各方法中之冠，
 顯示模型無關元學習的確有快速適應的能力。
     %\item 在未見過語言上，模型無關元學習於
-    \item 在訓練語言上，基準模型無論接觸多少目標語言的資料（0回合、一步、1回合、80回合），其表現均大幅贏過模型無關元學習模型，
-    這說明基準模型的確達到其訓練目標-同時剖析所有的訓練語言。
     \item 模型無關元學習模型在零樣本學習的表現大幅落後基準模型，說明其優勢主要在只需少量目標語言資料即可快速適應的能力，
     並不適合做為單一多語言模型同時處理多種語言。
+    \item 在未見過語言上，\reptile 模型在零樣本學習、精細校正一步、一回合與八十回合的情況下表現均與基準模型不相上下，
+在精細校正一步與一回合更稍稍勝過基準模型，顯示其適合用於剖析所有訓練與未見過的語言，又能夠受益於少量未見過語言的語料。
+    \item 在所有語言上，無論接觸多少目標語言的語料（精細校正前、一步、一回合、八十回合），
+\fomaml 模型均大幅落後其他所有模型，顯示只取內循環最後一步的梯度更新既不足以使模型學習到訓練語言的語法，
+也無法泛化到未見過的語言上。
+    \item 在訓練語言上，基準模型無論接觸多少目標語言的資料，其表現均大幅贏過模型無關元學習模型，
+這說明基準模型的確達到其訓練目標-同時剖析所有的訓練語言。
+
     %\item 在訓練語言上在精細校正一步的設置中，模型無關元學習模型在訓練語言上以少量資料精細校正後，於測試集上的表現明顯不如基準模型，但在未見過語言以少量資料精細校正測試集上
 \end{itemize}
+
+以下為分語言、分接觸目標語言語料量的數據圖表。
+%其中表\ref{tab:delex_las_epoch_1}
+其中圖\ref{fig:bar_zs}、\ref{fig:bar_one_step}、\ref{fig:bar_full_epoch_1}、\ref{fig:bar_full_epoch_80}
+為各方法接觸不同數量的各種目標語言的語料其表現的長條圖。
+\iffalse
 \input{tables/chapter3/delex_las_epoch_1.tex}
 \input{tables/chapter3/delex_las_epoch_1_maml.tex}
 \input{tables/chapter3/delex_las_epoch_1_reptile.tex}
 \input{tables/chapter3/delex_las_epoch_1_fomaml.tex}
+\fi
 \input{figs/chapter3/delex/bar_zs.tex}
 \input{figs/chapter3/delex/bar_one_step.tex}
 \input{figs/chapter3/delex/bar_full_epoch_1.tex}
 \input{figs/chapter3/delex/bar_full_epoch_80.tex}
+\pagebreak
+\subsubsection{各預訓練方法不同內循環步數的比較}
+\input{figs/chapter3/delex/lang_avg_maml.tex}
+\input{figs/chapter3/delex/lang_avg_fomaml.tex}
+\input{figs/chapter3/delex/lang_avg_reptile.tex}
+\pagebreak
+\subsubsection{小模型下各預訓練方法的比較}
 \input{figs/chapter3/delex/bar_small_zs.tex}
 \input{figs/chapter3/delex/bar_small_one_step.tex}
 \input{figs/chapter3/delex/bar_small_full_epoch_1.tex}
@@ -178,7 +196,7 @@ $\MRep(\MWord_{i})^{\top} \mathbf{U}^{(1)} \MRep(\MWord_{j})$則代表$\MWord_{i
 其原因主要可歸結為多語言模型需要設計統一的記符集（token set）來表示每個語言各異的書寫系統（writing system）產生的文字。
 在單語言時可直接用該語言經斷詞後所統計出的常見詞作為記符（token）；
 單語言的常見詞數目通常設定在10000-40000詞即非常堪用，剩下的低頻詞並不影響模型表現太多；
-但多語言模型若不減少任一語言之記符數而直接結合各語言的詞彙做為記符集，此記符集將將變得太大，且相近語言無法透過相似的構詞共享參數，
+但多語言模型若不減少任一語言之記符數而直接結合各語言的詞彙做為記符集，此記符集將變得太大，且相近語言無法透過相似的構詞共享參數，
 如西班牙文的「學生」一詞``estudiante''與其英文的對應``student''有共同的詞子字串``stud''，上述直接結合的方法便無法讓模型學習到這些共通性。
 文獻上已經提出許多解決辦法，以下列舉三項：
 \begin{itemize}
@@ -210,7 +228,7 @@ $\mathrm{mBERT}\left(\MWord\right)_{i}$為記符$\MWord$通過$\mathrm{mBERT}$�
 \begin{equation}
     \MRep\left(\MWord\right) = \alpha \sum_{i=1}^{L} \mathrm{mBERT}\left(\MWord\right)_{i} \cdot \mathrm{softmax} {\left(\mathbf{c}\right)}_{i}
 \end{equation}
-其中$L$為$\mathrm{mBERT}$的層數（本研究使用\texttt{bert-base-multilingual-cased}版本，$L=12$），
+其中$L$為$\mathrm{mBERT}$的層數（本研究使用\texttt{bert-base-multilingual-cased}版本\footnote{見\url{https://github.com/google-research/bert}}，$L=12$），
 $\alpha$為可調整的純量，$\mathbf{c} \in \mathbb{R}^{L}$為層專注權重。
 
 為了防止模型過於仰賴特定層的資訊而造成過擬合，這裏採用孔氏提出的\cite{kondratyuk-straka-2019-75}的層丟棄（layer dropout），
@@ -240,13 +258,13 @@ $\alpha$為可調整的純量，$\mathbf{c} \in \mathbb{R}^{L}$為層專注權�
 
 \subsubsection{基準模型與元學習模型共同實驗設置}
 
-本節的實驗設置基於\conll的實驗設置，但做了些微改變：
-我們從\conll的53種訓練語言（73個訓練句法樹庫）中選取有官方驗證集（development set）的46種訓練語言（66個訓練句法樹庫）作爲訓練語言；見表\ref{tab:training_languages}。
-預訓練完成後，我們分別對該模型進行\zeroshot及\finetune在預訓練中未見過的語言上。
+本節的實驗設置基於\conll 的實驗設置，但做了些微改變：
+我們從\conll 的53種訓練語言（73個訓練句法樹庫）中選取有官方驗證集（development set）的46種訓練語言（66個訓練句法樹庫）作爲訓練語言；見表\ref{tab:training_languages}。
+預訓練完成後，我們分別對該模型進行\zeroshot 及\finetune 在預訓練中未見過的語言上。
 本節實驗在訓練語言與測試語言的切分與章節\ref{subsec:delex_depparse_setting}去詞化的依存句法剖析設置大致相同，不再贅述，
 而訓練方法部分，
 在訓練時也均使用正確的斷句、斷詞，
-惟測試時爲了與\conll相比，由於\conll連句法剖析之前的預處理（斷句、斷詞）也納入整體評分，
+惟測試時爲了與\conll 相比，由於\conll 連句法剖析之前的預處理（斷句、斷詞）也納入整體評分，
 但研究重點在句法剖析而非預處理，
 因此直接採用StanfordNLP的預處理系統\cite{qi-etal-2018-universal}\footnote{https://github.com/stanfordnlp/stanfordnlp}。
 
@@ -261,16 +279,16 @@ $\alpha$為可調整的純量，$\mathbf{c} \in \mathbb{R}^{L}$為層專注權�
 
 \subsubsection{元學習實驗設置}
 
-對於\reptile與\fomaml，如無特別註明，外迴圈學習率（outer-loop learning rate）與內迴圈學習率（inner loop-learning rate）相同。
-\subsubsection{\zeroshot（Zero-shot Transfer）實驗設置}
+對於\reptile 與\fomaml ，如無特別註明，外迴圈學習率（outer-loop learning rate）與內迴圈學習率（inner loop-learning rate）相同。
+\subsubsection{\zeroshot （Zero-shot Transfer）實驗設置}
 我們選取CoNLL 2018 Shared Task中只有訓練集而沒有發展集的語言作爲測試語言。
 
 \input{tables/chapter3/training_languages.tex}
 \input{tables/chapter3/test_languages.tex}
 \input{tables/chapter3/hparams.tex}
 
-\subsubsection{\finetune（Fine-tuning）實驗設置}
-本論文從預訓練完的模型開始對目標語言\finetune 40個回合。其他\finetune的超參數請見表\ref{tab:finetune_hparams}。
+\subsubsection{\finetune （Fine-tuning）實驗設置}
+本論文從預訓練完的模型開始對目標語言\finetune 40個回合。其他\finetune 的超參數請見表\ref{tab:finetune_hparams}。
 
 由於選取的測試語言都沒有官方驗證集，在此說明從訓練集中分割出驗證集的方式：
 對於訓練集少於100筆資料的語言（有Buryat、Kurmanji、Upper Sorbian、Kazakh、Armenian），以$k$摺交叉驗證（k-fold cross-validation）的方式
@@ -278,20 +296,20 @@ $\alpha$為可調整的純量，$\mathbf{c} \in \mathbb{R}^{L}$為層專注權�
 對於訓練集大於100筆資料的語言（有Irish、North Sami），則隨機切出$\frac{1}{8}$的訓練資料作為驗證資料。
 
 \subsection{實驗結果}
-\subsubsection{\zeroshot（Zero-shot Transfer）}
+\subsubsection{\zeroshot （Zero-shot Transfer）}
 %\input{figs/chapter3/dir_size_las_zs_multi-adapter-crf}
-基準模型進行\zeroshot的結果呈現於圖。%\ref{fig:dir-size-las-zs-multi-adapter-crf}。
+基準模型進行\zeroshot 的結果呈現於圖。%\ref{fig:dir-size-las-zs-multi-adapter-crf}。
 \iffalse
 \input{tables/chapter3/las_zs.tex}
 \fi
-\subsubsection{單語言\finetune（Monolingual Fine-tuning）}
+\subsubsection{單語言\finetune （Monolingual Fine-tuning）}
 
-基準模型進行單語言\finetune的結果呈現於圖\ref{fig:dir-size-las-ft-multi}。從該圖可以發現，句法樹庫的大小幾乎決定了基準模型進行單語言\finetune在各種語言上的表現。
+基準模型進行單語言\finetune 的結果呈現於圖\ref{fig:dir-size-las-ft-multi}。從該圖可以發現，句法樹庫的大小幾乎決定了基準模型進行單語言\finetune 在各種語言上的表現。
 
 %\fomaml模型進行單語言\finetune的結果相對於基準模型的進步量呈現於圖\ref{fig:dir-size-las-ft-fomaml-to-multi}。從該圖可以發現，\fomaml主要在資料不足語言表現較基準模型稍佳，而在資料充足語言則差異不大。
 模型進行單語言的結果相對於基準模型的進步量呈現於圖\ref{fig:dir-size-las-ft-fomaml-to-multi}。從該圖可以發現，主要在資料不足語言表現較基準模型稍佳，而在資料充足語言則差異不大。
 
-\reptile模型進行單語言\finetune的結果相對於基準模型的進步量呈現於圖\ref{fig:dir-size-las-ft-reptile-to-multi}。從該圖可以發現，\reptile主要在資料不足語言表現較基準模型稍佳，而在資料充足語言則差異不大。
+\reptile 模型進行單語言\finetune 的結果相對於基準模型的進步量呈現於圖\ref{fig:dir-size-las-ft-reptile-to-multi}。從該圖可以發現，\reptile 主要在資料不足語言表現較基準模型稍佳，而在資料充足語言則差異不大。
 
 \input{figs/chapter3/dir_size_las_ft-multi}
 

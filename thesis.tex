@@ -17,6 +17,7 @@
 \usepackage{subcaption}
 \usepackage{tabularx}
 \usepackage{url}
+\usepackage{booktabs}
 \usepackage[usenames,dvipsnames]{color}
 %\usepackage[square, comma, numbers, sort&compress]{natbib}
 \usepackage[colorlinks, linkcolor=black, citecolor=black, urlcolor=black, unicode]{hyperref}	
@@ -84,6 +85,8 @@ commentstyle=\upshape,% 預設是斜體字，會影響註解裏的英文，改�
 % 請修改 notations.tex 加入自己需要的 notations
 \input{notations}
 
+\input{my_notations}
+
 % Title Page
 % 請修改 title_settings.tex 設定論文題目/指導教授等變數
 \input{title_settings}
@@ -106,7 +109,7 @@ commentstyle=\upshape,% 預設是斜體字，會影響註解裏的英文，改�
 \CJKindent  %%% ZZZ %%%  段首內縮兩格
 
 %%% 以下載入前頁、本文、後頁
-
+%\input{notations}
 \input{thesis_frontpages}
 \input{chapters/all}
 \input{thesis_backpages}
