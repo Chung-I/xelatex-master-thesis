@@ -1,0 +1,62 @@
+\begin{table}[htbp]
+    % \fontsize{8}{10}\selectfont
+    \centering
+    \begin{subtable}[t]{.4\textwidth}
+        \centering
+        \begin{tabular}[t]{@{}lr@{}}
+        \toprule
+        超參數 & 值 \\
+        \midrule
+            詞性嵌入維度         & 100 \\
+            詞性嵌入維度（小模型） & 10 \\
+            編碼器              & 雙向LSTM \\
+            編碼器層數           & 3 \\
+            編碼器隱維度         & 100 \\
+            編碼器隱維度（小模型） & 10 \\
+            依存邊維度           & 200 \\
+            依存邊維度（小模型）   & 20 \\
+            依存標籤維度          & 200 \\
+            依存標籤維度（小模型） & 20 \\
+            詞性丟棄機率            & 0.33 \\
+            批次大小$b$         & 16 \\
+            語言數$l$           & 10 \\
+            訓練樣本數/回合        & 64000 \\
+            訓練回合數          & 10 \\
+            優化器              & Adam \\
+            $\beta_1,\beta_2$  & 0.9, 0.9 \\
+            權重衰減參數         & 0.01 \\
+            基礎學習率          & $3e^{-4}$ \\
+            最大梯度範數        & 5.0 \\
+            內循環步數          & 2 \\
+        \bottomrule
+        \end{tabular}
+        \caption{
+            預訓練超參數。
+        }
+        \label{tab:delex_pretrain_hparams}
+    \end{subtable}
+    \hspace{10pt}
+    \begin{subtable}[t]{.4\textwidth}
+        \centering
+        \begin{tabular}[t]{@{}lr@{}}
+        \toprule
+        超參數 & 值 \\
+        \midrule
+            優化器              & Adam \\
+            基礎學習率          & $3e^{-4}$ \\
+            $\beta_1,\beta_2$  & 0.9, 0.9 \\
+            批次大小            & 16 \\
+            訓練回合數          & 80 \\
+            最大梯度範數        & 5.0 \\
+        \bottomrule
+        \end{tabular}
+        \caption{
+            精細校正超參數。
+        }
+        \label{tab:delex_finetune_hparams}
+    \end{subtable}
+    \caption{
+        去詞化依存句法剖析模型超參數一覽。
+    }
+    \label{tab:delex_hparams}
+\end{table}

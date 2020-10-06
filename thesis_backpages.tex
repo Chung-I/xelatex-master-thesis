@@ -12,8 +12,20 @@
 
 
 %%% 附錄
-%\input{my_appendix.tex}
 
+\newpage
+%\phantomsection % for hyperref to register this
+%\addcontentsline{toc}{chapter}{\nameAppendix}
+\renewcommand\prechaptername{}
+\renewcommand\countermapping[1]{#1}
+%\renewcommand\tocpostchaptername{}
+\renewcommand\postchaptername{}
+%\renewcommand{\appendixname}{\protect\makebox[5cm][s]{\nameAppendix}}
+\appendix
+\chapter{附錄一}
+\input{chapters/appendix}
+%\chapter{\appendixname}
+%\input{chapters/appendix}
 %%% 自傳
 %\newpage
 %\chapter*{\protect\makebox[5cm][s]{\nameVita}} % \makebox{} is fragile; need protect

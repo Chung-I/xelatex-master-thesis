@@ -412,10 +412,11 @@ $\mathcal{\MDepRels} = \{(\MWord_{i}, \MWord_{j})\ |\ \MWord_{i},\MWord_{j} \in 
 亦即其為一滿足以下限制的有向圖：
 \begin{itemize}
     \item 整個有向圖只有一個根節點（root，無入邊的節點）。
-    \item 除了根節點以外，每個節點皆有剛好一條入邊。
+    \item 除了根節點以外，每個節點皆有剛好一個父節點。
     \item 每個節點都存在剛好一條路徑從根節點到該節點。
 \end{itemize}
-
+在句法學中，每個詞（節點）的父節點稱作該詞的中心詞（head）；
+而詞擁有的子節點則稱作該詞的依附詞（dependent）。
 因此給定句子$\MSent$，其所有合法單一根有向樹集合$\MakeUppercase{\MTree}(\MSent)$，
 一剖析器$\MSent \mapsto \MTree,\ \MTree \in \MakeUppercase{\MTree}(\MSent)$，
 其目標便是從所有可能的樹集$\MakeUppercase{\MTree}(\MSent)$中找出一顆樹$\MTree'$，
@@ -437,16 +438,16 @@ UD句法樹庫在句法關係的分類上採取兩階層的架構，
 \subsubsection{評估指標（evaluation metric）}
 
 現行評斷依存句法剖析器輸出好壞的數值為標籤不計依附分數（Unlabeled Attachment Score, UAS）與標籤依附分數（Labeled Attachment Score, LAS）。
-由於句法剖析樹每個詞都有父節點（除了根節點以外）的特性，
-依附分數利用此性質，以詞為單位，計算剖析器成功預測每個詞的父節點詞的比例：
+由於句法剖析樹每個詞都有其中心詞（除了根節點以外）的特性，
+依附分數利用此性質，以詞為單位，計算剖析器成功預測每個詞的中心詞的比例：
 \begin{equation}
-    \textrm{標籤不計依附分數} = \frac{\#\textrm{父節點詞與正確答案相同的詞}}{\#\textrm{詞}} \textrm{。}
+    \textrm{標籤不計依附分數} = \frac{\#\textrm{中心詞與正確答案相同的詞}}{\#\textrm{詞}} \textrm{。}
 \end{equation}
-而沒有父節點詞的根節點詞，剖析器則要正確判斷其沒有父節點詞。
+而沒有中心詞的根節點詞，剖析器則要正確判斷其沒有中心詞。
 
-標籤依附分數則計算父節點詞與通往父節點的邊其依存關係標籤兩者均預測正確的比例：
+標籤依附分數則計算中心詞與通往中心詞的邊其依存關係標籤兩者均預測正確的比例：
 \begin{equation}
-    \textrm{標籤依附分數} = \frac{\#\textrm{父節點詞、依存關係標籤與正確答案相同的詞}}{\#\textrm{詞}} \textrm{。}
+    \textrm{標籤依附分數} = \frac{\#\textrm{中心詞、依存關係標籤與正確答案相同的詞}}{\#\textrm{詞}} \textrm{。}
 \end{equation}
 
 \input{tables/chapter2/dep_rels.tex}
@@ -489,18 +490,28 @@ $p_{\theta} (\MTree|\MSent): \MakeUppercase{\MTree}(\MSent) \rightarrow [0, 1]$�
 2007年的古氏（Terry Koo）\cite{koo-etal-2007-structured}與2017年的馬氏（Xuezhe Ma）\cite{ma-hovy-2017-neural}
 均採用該定理有效率地計算配分函數。
 
-\subsubsection{父節點選擇交叉熵（headword selection cross-entropy）}
+\subsubsection{中心語選擇交叉熵（head-word selection cross-entropy）}
 
 相較於上節使用矩陣-樹定理得出精確的句法樹機率，多氏\cite{Dozat2017DeepBA}在該篇論文中採用較為簡單的演算法近似句法樹機率；
-如前述，由於句子中的每個詞都剛好需要從其他詞中選擇一詞作為其父節點詞（或者指定該詞為「根」），
-令$h(w)$為詞$w$的父節點，
+如前述，由於句子中的每個詞都剛好需要從其他詞中選擇一詞作為其中心詞（或者指定該詞為「根」），
+令$h(w)$為詞$w$的中心詞，
 $W^{+} = W + \{\texttt{root}\}$（$(\texttt{root}, w)$代表$w$為根節點），
-他將句法樹的機率用每個詞選擇其父節點詞的機率相乘來代表：
+他將句法樹的機率用每個詞選擇其中心詞的機率相乘來代表：
 \begin{equation}
     p_{\theta} (\MTree) = \prod_{w \in W} \frac{e^{\MScore((h(w), w))} }{\sum\limits_{w' \in W^{+}, w' \neq w} e^{\MScore((w', w))}}
     \textrm{。}
 \end{equation}
-
+\subsection{中心詞方向性（head-directionality）}
+\label{subsec:head-dir}
+不同語言的語法其中一個關鍵的差異為中心詞的方向性。
+若一種語言的依存關係其中心詞在依附詞之前的頻率較高，則我們稱此語言為中心詞前置（head-initial）的語言；
+反之，若一種語言的依存關係其中心詞在依附詞之後的頻率較高，則我們稱此語言為中心詞後置（head-final）的語言。
+圖\ref{fig:head-dir-example}以英文及日文為例子，說明中心詞方向性在依存句法樹上的實例。
+圖\ref{fig:udv2.5-head-dir}則展示了UD句法樹庫收錄所有含有訓練集的語言其中心詞方向性，
+可以看到不同語言的方向性有著不小的差異，從中心詞前置傾向明顯的阿拉伯語（ar）到嚴格遵守中心詞後置規則的日語（ja），
+展現了人類語言在方向性上的多樣性。
+\input{figs/chapter2/directionality_tree.tex}
+\input{figs/chapter2/directionality.tex}
 \input{tables/chapter2/cle.tex}
 \section{基於優化的元學習 （Optimization-based Meta Learning）}
 \label{sec:mamls}

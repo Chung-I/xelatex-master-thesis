@@ -10,7 +10,7 @@
 \begin{equation}
     s(\MWord_{i}, \MWord_{j}) = \MRep(\MWord_{i})^{\top} \mathbf{U}^{(1)} \MRep(\MWord_{j}) + \MRep(\MWord_{i})^{\top} U^{(2)} + \MRep(\MWord_{j})^{\top} U^{(3)} + \mathbf{b}\ .
 \end{equation}
-上式可分為三部分解釋：$\MRep(\MWord_{i})^{\top} U^{(2)}$代表$w_{i}$接受任何子節點的可能性；$\MRep(\MWord_{j})^{\top} U^{(3)}$代表$w_{j}$接受任何父節點的可能性；
+上式可分為三部分解釋：$\MRep(\MWord_{i})^{\top} U^{(2)}$代表$w_{i}$接受任何依附詞的可能性；$\MRep(\MWord_{j})^{\top} U^{(3)}$代表$w_{j}$接受任何中心詞的可能性；
 $\MRep(\MWord_{i})^{\top} \mathbf{U}^{(1)} \MRep(\MWord_{j})$則代表$\MWord_{i}$與$\MWord_{j}$之間存在連結（邊）的可能性。
 
 \subsection{多語言基於轉換器模型的雙向編碼器表示（multilingual BERT）}
@@ -22,7 +22,7 @@ $\MRep(\MWord_{i})^{\top} \mathbf{U}^{(1)} \MRep(\MWord_{j})$則代表$\MWord_{i
 其原因主要可歸結為多語言模型需要設計統一的記符集（token set）來表示每個語言各異的書寫系統（writing system）產生的文字。
 在單語言時可直接用該語言經斷詞後所統計出的常見詞作為記符（token）；
 單語言的常見詞數目通常設定在10000-40000詞即非常堪用，剩下的低頻詞並不影響模型表現太多；
-但多語言模型若不減少任一語言之記符數而直接結合各語言的詞彙做為記符集，此記符集將將變得太大，且相近語言無法透過相似的構詞共享參數，
+但多語言模型若不減少任一語言之記符數而直接結合各語言的詞彙做為記符集，此記符集將變得太大，且相近語言無法透過相似的構詞共享參數，
 如西班牙文的「學生」一詞``estudiante''與其英文的對應``student''有共同的詞子字串``stud''，上述直接結合的方法便無法讓模型學習到這些共通性。
 文獻上已經提出許多解決辦法，以下列舉三項：
 \begin{itemize}
@@ -140,5 +140,6 @@ $\alpha$為可調整的純量，$\mathbf{c} \in \mathbb{R}^{L}$為層專注權�
 
 %\input{figs/delex_parsing/dir_size_las_ft-reptile-to-multi}
 \input{figs/lex_parsing/linecharts/lang_avgs.tex}
-\input{figs/lex_parsing/barplots/bar.tex}
+每個語言各自詳細的UAS/LAS數值可見圖\ref{fig:lex_bar_zs}、\ref{fig:lex_bar_one_step}、
+\ref{fig:lex_bar_full_epoch_1}與\ref{fig:lex_bar_full_epoch_80}。
 \input{figs/lex_parsing/dir_scatterplots/dir_scatter.tex}

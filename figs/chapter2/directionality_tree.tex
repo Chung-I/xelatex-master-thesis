@@ -1,0 +1,34 @@
+\begin{figure}[tbp]
+    \centering
+    \begin{subfigure}[b]{1.\textwidth}
+      \centering
+      \captionsetup{justification=centering}
+      \begin{dependency}[edge style={black!60!black,very thick},
+        label style={fill=yellow!60,font=\bfseries,thick}]
+        \begin{deptext}[column sep=0.3cm, row sep=0.5ex, font=\rmfamily]
+          VERB\& NOUN \\
+          eat\&  fruit \\
+        \end{deptext}
+      \depedge{1}{2}{obj}
+      \end{dependency}
+      \caption{英文有中心詞前置的傾向。}
+      \label{fig:en-dir-example}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[b]{1.\textwidth}
+      \centering
+      \begin{dependency}[edge style={black!60!black,very thick},
+        label style={fill=yellow!60,font=\bfseries,thick}]
+        \begin{deptext}[column sep=0.3cm, row sep=0.5ex, font=\rmfamily]
+          NOUN\&  ADP \& VERB\&  \\
+          りんご\&  を \& 食べる \\
+        \end{deptext}
+      \depedge{1}{2}{case}
+      \depedge{3}{1}{obj}
+      \end{dependency}
+      \caption{日文有中心詞後置的傾向。}
+      \label{fig:ja-dir-example}
+    \end{subfigure}
+    \caption{不同語言有不同的中心詞方向性參數。}
+    \label{fig:head-dir-example}
+\end{figure}
