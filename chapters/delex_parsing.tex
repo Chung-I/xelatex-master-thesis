@@ -265,8 +265,10 @@ $p (\textrm{p}_{\textrm{head}}|\textrm{p}_{\textrm{dep}}, (i_{\textrm{head}}$-$i
 圖\ref{fig:dir_scatter_zs}、\ref{fig:dir_scatter_one_step}、\ref{fig:dir_scatter_full_epoch_1}與\ref{fig:dir_scatter_full_epoch_80}
 呈現了去詞化依存句法剖析各預訓練方法經過不同步數的精細校正後產生的句法樹其方向性的變化及與正確句法樹方向性的差異。
 
-由圖\ref{fig:dir_scatter_zs}可以看出在精細校正前，爬蟲類元學習與基準模型預測出的中心詞方向性就與正確答案高度相關，
-顯示這兩種方法無論有沒有接觸過目標語言，在不知道目標語言任何資訊的情況下，透過詞性標記序列就可以充分掌握目標語言之中心詞方向性。
+由圖\ref{fig:dir_scatter_zs}可以看出在精細校正前，爬蟲類元學習與基準模型產生的句法樹其中心詞方向性就與正確答案高度相關，之後不管精細校正1步、1回合、80回合，其相關性依然保持精細校正前的水準，並有些許進步，
+顯示這兩種方法無論有沒有接觸過目標語言，知不知道目標語言的任何資訊，透過詞性標記序列就可以充分掌握目標語言之中心詞方向性。
+而模型無關元學習與一階模型無關元學習產生的句法樹其中心詞方向性與正確答案則不若前述兩者相關，與圖\ref{fig:delex_avg}中的LAS得到的發現類似，顯示這兩個方法可能並未對目標語言的中心詞方向性有太多的假設；但接觸目標語言並進行梯度更新以後（圖\ref{fig:dir_scatter_one_step}），它們快速掌握了目標語言的中心詞方向性，顯示這兩個方法的確有快速適應的能力。
+計數模型產生之句法樹與正確答案的相關性則較低，且大多都徘徊在中心詞前置的範圍內
 \input{figs/delex_parsing/dir_scatterplots/dir_scatter.tex}
 \subsection{小模型去詞化依存句法剖析各方法產生句法樹之方向性分析}
 \input{figs/delex_parsing/dir_scatterplots/small_dir_scatter.tex}
