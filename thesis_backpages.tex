@@ -16,13 +16,18 @@
 \newpage
 %\phantomsection % for hyperref to register this
 %\addcontentsline{toc}{chapter}{\nameAppendix}
-\renewcommand\prechaptername{}
-\renewcommand\countermapping[1]{#1}
+\phantomsection % for hyperref to register this
+\addcontentsline{toc}{chapter}{\nameAppendix}
+\chapter*{\protect\makebox[5cm][s]{\nameAppendix}}
+%\renewcommand{\bibname}{\protect\makebox[5cm][s]{\nameAppendix}}
+%\bibliography{appendix}
+%\renewcommand\prechaptername{}
+%\renewcommand\countermapping[1]{#1}
 %\renewcommand\tocpostchaptername{}
-\renewcommand\postchaptername{}
+%\renewcommand\postchaptername{}
 %\renewcommand{\appendixname}{\protect\makebox[5cm][s]{\nameAppendix}}
-\appendix
-\chapter{附錄一}
+%\appendix
+%\chapter{附錄一}
 \input{chapters/appendix}
 %\chapter{\appendixname}
 %\input{chapters/appendix}
