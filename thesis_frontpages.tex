@@ -4,8 +4,9 @@
 \setcounter{page}{1}
 \pagenumbering{roman}
 
-\NTUoralpage  % 產生口試委員會審定書
+%\NTUoralpage  % 產生口試委員會審定書
 
+\iffalse
 \mydoublespacing
 \begin{acknowledgement} %誌謝
 兩年來的碩士生活，隨著這份論文的誕生而告了一個段落。回思過去兩年來的生活，有做出成果的喜悅、也有處處碰壁時的苦悶、也有跟同學共同奮鬥的記憶，自己在這兩年中實在成長了許多，而這些都要感謝實驗室的大家長：李琳山教授。教授在實驗室營造了自由研究的氛圍，讓實驗室的同學都能按自己喜好自由發展研究方向，並從旁關心協助同學的研究。我在這樣的氛圍下也受益許多，學習到了許多做研究與做人處事的方法。
@@ -17,11 +18,47 @@
 最後要感謝我的朋友、同學、以及伙伴們，不論是平常一起吃飯聊天、有正事時的一起奮鬥、或一起出去玩，你們都是我平常生活上最大的支持！
 
 \end{acknowledgement}
-
+\fi
 \begin{zhAbstract}  %中文摘要
-這是摘要
+依存句法分析為自然語言處理系統中非常基礎卻也非常重要的元件之一。
+然而現今地球上只有大約不到2\%的語言具有依存句法剖析所需要的語料。
+現今幫助資料不足語言句法剖析的方法主要利用資料充足語言進行多語言訓練，
+再將參數轉移到資料不足語言上。
+這些方法在訓練時對資料充足語言進行優化，
+測試時的目標卻是在未見過的資料不足語言精細校正後有好表現，
+造成訓練與測試目標不一致的情況。
+本論文提出使用模型無關元學習方法改進資料充足語言多語言訓練的演算法，
+不同於現有方法優化參數在各個語言的語言剖析準確率，
+而是優化該參數在各個語言上精細校正後的語言剖析準確率，有效解決訓練與測試目標不一致的問題。
+本研究將模型無關元學習方法實驗在去詞化依存句法剖析，
+分析不同模型無關元學習演算法的變形其在依存句法剖析的效果優劣，
+與不同的超參數設置對剖析準確率的影響，
+發現爬蟲類元學習既適合在訓練語言上訓練完成後直接剖析未見過的資料不足語言，
+也適合利用資料不足語言的少量語料繼續精進準確率；
+模型無關元學習與其一階近似則具有接觸資料不足語言語料後快速適應的能力。
+最後將模型無關元學習推廣到實際的應用場景--詞化的依存句法剖析，
+發現傳統的多語言協同訓練的基準模型就足夠應付大部分的需求，
+而模型無關元學習相關方法則有改進的餘地。
+我們也觀察了這些多語言預訓練方法在精細校正過程中掌握目標語言特性的樣態，
+為往後改良模型無關元學習演算法提供了有益的觀察。
 
 \end{zhAbstract}
+\begin{enAbstract}
+    Dependency parsing is one of the fundamental yet essential components in natural language processing pipelines.
+    However, Only less than 2\% of languages in the world have dependency tree data available for parsing.
+    Existing methods of improving low-resource dependency parsing usually employ multilingual training on high-resource languages, then transfer its parameters to low-resource dependency parsing systems.
+    These methods optimize for parsing accuracies on high-resource languages, yet are asked to perform well on low-resource languages after fine-tuning on each of them, which results in a mismatch between training- and testing-time objectives.
+    In this thesis, we apply model-agnostic meta-learning methods (MAML) on low-resource dependency parsing.
+    Instead of optimizing parsing accuracies of training languages,
+    MAML optimizes for parsing accuracies on each language after fine-tuning,
+    which effectively reduces the mismatch of training- and testing-time objectives.
+    We first apply MAML on delexicalized dependency parsing to analyze the performance of different variants of MAML-based methods (MAML, Reptile, FOMAML),
+    and the impact of various hyperparameter settings on parsing accuracies.
+    We find that Reptile is suitable for both zero-shot transfer and low-resource fine-tuning, while MAML and FOMAML can quickly adapt to target languages.
+    Then we extend MAML-based methods to a real-world scenario -- lexicalized dependency parsing and find that in most cases, conventional multilingual training works well enough, leaving some room for improvement in MAML-based methods.
+    We also perform an analysis of the ability of different methods to adapt to target languages' characteristics, providing useful observation for improving MAML-based methods.
+
+\end{enAbstract}
 
 {
 %\zhKaiFont
